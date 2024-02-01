@@ -11,6 +11,7 @@ public class Caterpillar
         LEFT = 'L',
         RIGHT = 'R'
     }
+    private (int X, int Y) _TrailPosition;
 
     public Caterpillar()
     {
@@ -21,7 +22,7 @@ public class Caterpillar
         ]);
     }
 
-    public void Grow((int X, int Y) lastPosition)
+    public void Grow((int X, int Y) position)
     {
         if (Segments.Count < 5)
         {
@@ -33,7 +34,7 @@ public class Caterpillar
                 Part = Segment.Parts.BODY
             });
 
-            tail.ValueRef.Position = lastPosition;
+            tail.ValueRef.Position = position;
         }
     }
 
@@ -41,7 +42,12 @@ public class Caterpillar
     {
         if (Segments.Count > 2)
         {
-            Segments.Remove(Segments.Last.Previous);
+            var tail = Segments.Last;
+            var body = tail.Previous;
+            tail.ValueRef.Position = body.Value.Position;
+
+            Segments.Remove(body);
+
         }
     }
 
@@ -50,7 +56,7 @@ public class Caterpillar
         throw new Exception("Oops! Caterpillar disintegrated");
     }
 
-    public void Move(Direction direction)
+    public (int X, int Y) Move(Direction direction)
     {
         var head = Segments.First ?? throw new Exception("Caterpillar needs a head to move");
         var nextSegment = head.Next ?? throw new Exception("Caterpillar needs a tails to drag");
@@ -75,19 +81,16 @@ public class Caterpillar
                 break;
         }
 
-        Drag(nextSegment, nextPosition);
+        return Drag(nextSegment, nextPosition);
     }
 
-    private void Drag(LinkedListNode<Segment> segment, (int X, int Y) position)
+    private (int X, int Y) Drag(LinkedListNode<Segment> segment, (int X, int Y) position)
     {
         var nextSegment = segment.Next;
         var nextPosition = segment.Value.Position;
     
         segment.ValueRef.Position = position;
 
-        if (nextSegment != null)
-        {
-            Drag(nextSegment, nextPosition);
-        }
+        return nextSegment != null ? Drag(nextSegment, nextPosition) : nextPosition;
     }
 }

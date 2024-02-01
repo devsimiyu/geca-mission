@@ -32,7 +32,8 @@ while (true)
 
     for (int step = 0; step < steps; step++)
     {
-        caterpillar.Move(direction);
+        radar.Trail = caterpillar.Move(direction);
+
         radar.Tick();
     }
 

@@ -3,6 +3,8 @@
 public class Radar
 {
     public string Area { get; set; } = string.Empty;
+    public (int X, int Y) Trail = (-1,-1);
+
     private Caterpillar _Caterpillar { get; set; }
     private List<(int X, int Y)> _Spices = new List<(int X, int Y)>
     {
@@ -45,7 +47,6 @@ public class Radar
         (18,29),
     };
     private (int X, int Y) _FirstPosition = (-1,-1);
-    private (int X, int Y) _LastPosition = (-1,-1);
 
     public Radar(Caterpillar caterpillar)
     {
@@ -86,17 +87,19 @@ public class Radar
                     spot = (char) Spots.EMPTY;
                 }
 
-                for (var segment = _Caterpillar.Segments.First; segment != null; segment = segment.Next)
+                var head = _Caterpillar.Segments.First;
+                var tail = _Caterpillar.Segments.Last;
+
+                if (head.ValueRef.Position.X == x && head.ValueRef.Position.Y == y)
                 {
-                    if (segment.ValueRef.Position.X == x && segment.ValueRef.Position.Y == y)
+                    switch (spot)
                     {
-                        if (spot == (char) Spots.SPICE)
-                        {
+                        case (char) Spots.SPICE:
                             _Caterpillar.Spices = _Caterpillar.Spices + 1;
-                            _Spices.RemoveAt(_Spices.FindIndex(spice => spice == segment.ValueRef.Position));
-                        }
-                        else if (spot == (char) Spots.BOOSTER)
-                        {
+                            _Spices.RemoveAt(_Spices.FindIndex(spice => spice == head.ValueRef.Position));
+                            break;
+                        
+                        case (char) Spots.BOOSTER:
                             Console.WriteLine("Booster has been hit");
                             Console.WriteLine("Grow or shrink Caterpillar? Enter G for Grow. Enter S for shrink \n");
 
@@ -104,7 +107,7 @@ public class Radar
 
                             if (command.Equals("G"))
                             {
-                                _Caterpillar.Grow(_LastPosition);
+                                _Caterpillar.Grow(Trail);
                             }
                             else if (command.Equals("S"))
                             {
@@ -115,19 +118,29 @@ public class Radar
                                 throw new Exception("Oops! Failed to read command for grow or shrink");
                             }
 
-                            _Boosters.RemoveAt(_Boosters.FindIndex(booster => booster == segment.ValueRef.Position));
-                        }
-                        else if (spot == (char) Spots.OBSTACLE)
-                        {
-                            _Caterpillar.Disintegrate();
-                        }
+                            x = y = 0;
+                            Area = string.Empty;
 
-                        spot = (char) segment.ValueRef.Part;
+                            _Boosters.RemoveAt(_Boosters.FindIndex(booster => booster == head.ValueRef.Position));
+                            break;
+                        
+                        case (char) Spots.OBSTACLE:
+                            _Caterpillar.Disintegrate();
+                            break;
+                    }
+                }
+
+                for (int index = 0; index < _Caterpillar.Segments.Count; index++)
+                {
+                    var segment = _Caterpillar.Segments.ElementAt(index);
+
+                    if (segment.Position.X == x && segment.Position.Y == y)
+                    {
+                        spot = (char) segment.Part;
                         break;
                     }
                 }
 
-                _LastPosition = _Caterpillar.Segments.Last.Value.Position;
                 Area += spot;
             }
 
