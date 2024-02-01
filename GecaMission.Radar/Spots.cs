@@ -5,5 +5,6 @@ public enum Spots
     SPICE = '$',
     BOOSTER = 'B',
     OBSTACLE = '#',
-    EMPTY = '*'
+    EMPTY = '*',
+    FIRST = 'S'
 }

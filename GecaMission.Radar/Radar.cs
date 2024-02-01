@@ -1,4 +1,4 @@
-﻿namespace GecaMission;
+namespace GecaMission;
 
 public class Radar
 {
@@ -31,10 +31,12 @@ public class Radar
         (20,28),
         (20,29),
     };
+    private (int X, int Y) _FirstPosition = (-1,-1);
 
     public Radar(Caterpillar caterpillar)
     {
         _Caterpillar = caterpillar;
+        _FirstPosition = caterpillar.Segments.First.Value.Position;
 
         Tick();
     }
@@ -49,7 +51,11 @@ public class Radar
             {
                 char spot;
 
-                if (_Spices.Contains((x,y)))
+                if ((x,y) == _FirstPosition)
+                {
+                    spot = (char) Spots.FIRST;
+                }
+                else if (_Spices.Contains((x,y)))
                 {
                     spot = (char) Spots.SPICE;
                 }
