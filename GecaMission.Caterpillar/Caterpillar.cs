@@ -22,15 +22,19 @@ public class Caterpillar
         ]);
     }
 
-    public void Grow((int X, int Y) position)
+    public void Grow((int X, int Y) lastPosition)
     {
         if (Segments.Count < 5)
         {
-            Segments.AddBefore(Segments.Last, new Segment 
+            var tail = Segments.Last;
+
+            Segments.AddBefore(tail, new Segment 
             { 
-                Position = position,
+                Position = tail.Value.Position,
                 Part = Segment.Parts.BODY
             });
+
+            tail.ValueRef.Position = lastPosition;
         }
     }
 

@@ -1,4 +1,4 @@
-namespace GecaMission;
+﻿namespace GecaMission;
 
 public class Radar
 {
@@ -32,6 +32,7 @@ public class Radar
         (20,29),
     };
     private (int X, int Y) _FirstPosition = (-1,-1);
+    private (int X, int Y) _LastPosition = (-1,-1);
 
     public Radar(Caterpillar caterpillar)
     {
@@ -44,7 +45,7 @@ public class Radar
     public void Tick()
     {
         Area = string.Empty;
-        
+
         for (int y = 0; y < 30; y++)
         {
             for (int x = 0; x < 30; x++)
@@ -79,6 +80,7 @@ public class Radar
                         }
                         if (spot == (char) Spots.BOOSTER)
                         {
+                            _Caterpillar.Grow(_LastPosition);
                             _Boosters.RemoveAt(_Boosters.FindIndex(booster => booster == segment.ValueRef.Position));
                         }
 
@@ -87,6 +89,7 @@ public class Radar
                     }
                 }
 
+                _LastPosition = _Caterpillar.Segments.Last.Value.Position;
                 Area += spot;
             }
 
