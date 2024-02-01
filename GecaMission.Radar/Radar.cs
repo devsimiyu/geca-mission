@@ -97,7 +97,24 @@ public class Radar
                         }
                         else if (spot == (char) Spots.BOOSTER)
                         {
-                            _Caterpillar.Grow(_LastPosition);
+                            Console.WriteLine("Booster has been hit");
+                            Console.WriteLine("Grow or shrink Caterpillar? Enter G for Grow. Enter S for shrink \n");
+
+                            var command = Console.ReadLine()?.ToUpper() ?? "";
+
+                            if (command.Equals("G"))
+                            {
+                                _Caterpillar.Grow(_LastPosition);
+                            }
+                            else if (command.Equals("S"))
+                            {
+                                _Caterpillar.Shrink();
+                            }
+                            else
+                            {
+                                throw new Exception("Oops! Failed to read command for grow or shrink");
+                            }
+
                             _Boosters.RemoveAt(_Boosters.FindIndex(booster => booster == segment.ValueRef.Position));
                         }
                         else if (spot == (char) Spots.OBSTACLE)

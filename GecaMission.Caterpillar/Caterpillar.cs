@@ -39,7 +39,10 @@ public class Caterpillar
 
     public void Shrink()
     {
-        Segments.RemoveLast();
+        if (Segments.Count > 2)
+        {
+            Segments.Remove(Segments.Last.Previous);
+        }
     }
 
     public void Disintegrate()
