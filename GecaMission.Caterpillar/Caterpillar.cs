@@ -11,7 +11,6 @@ public class Caterpillar
         LEFT = 'L',
         RIGHT = 'R'
     }
-    private (int X, int Y) _TrailPosition;
 
     public Caterpillar()
     {
