@@ -4,7 +4,6 @@ public class Caterpillar
 {
     public LinkedList<Segment> Segments { get; set; }
     public int Spices { get; set; }
-
     public enum Direction
     {
         UP = 'U',
@@ -41,6 +40,11 @@ public class Caterpillar
     public void Shrink()
     {
         Segments.RemoveLast();
+    }
+
+    public void Disintegrate()
+    {
+        throw new Exception("Oops! Caterpillar disintegrated");
     }
 
     public void Move(Direction direction)

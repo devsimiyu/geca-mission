@@ -31,6 +31,19 @@ public class Radar
         (20,28),
         (20,29),
     };
+    private List<(int X, int Y)> _Obstacles = new List<(int X, int Y)>
+    {
+        (26,1),
+        (25,2),
+        (5,3),
+        (28,4),
+        (5,9),
+        (21,7),
+        (10,10),
+        (16,16),
+        (8,28),
+        (18,29),
+    };
     private (int X, int Y) _FirstPosition = (-1,-1);
     private (int X, int Y) _LastPosition = (-1,-1);
 
@@ -64,6 +77,10 @@ public class Radar
                 {
                     spot = (char) Spots.BOOSTER;
                 }
+                else if (_Obstacles.Contains((x,y)))
+                {
+                    spot = (char) Spots.OBSTACLE;
+                }
                 else
                 {
                     spot = (char) Spots.EMPTY;
@@ -78,10 +95,14 @@ public class Radar
                             _Caterpillar.Spices = _Caterpillar.Spices + 1;
                             _Spices.RemoveAt(_Spices.FindIndex(spice => spice == segment.ValueRef.Position));
                         }
-                        if (spot == (char) Spots.BOOSTER)
+                        else if (spot == (char) Spots.BOOSTER)
                         {
                             _Caterpillar.Grow(_LastPosition);
                             _Boosters.RemoveAt(_Boosters.FindIndex(booster => booster == segment.ValueRef.Position));
+                        }
+                        else if (spot == (char) Spots.OBSTACLE)
+                        {
+                            _Caterpillar.Disintegrate();
                         }
 
                         spot = (char) segment.ValueRef.Part;
