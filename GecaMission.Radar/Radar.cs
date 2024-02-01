@@ -101,15 +101,15 @@ public class Radar
                         
                         case (char) Spots.BOOSTER:
                             Console.WriteLine("Booster has been hit");
-                            Console.WriteLine("Grow or shrink Caterpillar? Enter G for Grow. Enter S for shrink \n");
+                            Console.WriteLine("Grow or shrink Caterpillar? Enter g for Grow. Enter s for shrink \n");
 
-                            var command = Console.ReadLine()?.ToUpper() ?? "";
+                            var command = Console.ReadLine()?.ToLower() ?? "";
 
-                            if (command.Equals("G"))
+                            if (command.Equals("g"))
                             {
                                 _Caterpillar.Grow(Trail);
                             }
-                            else if (command.Equals("S"))
+                            else if (command.Equals("s"))
                             {
                                 _Caterpillar.Shrink();
                             }

@@ -6,9 +6,9 @@ var radar = new Radar(caterpillar);
 while (true)
 {
     Console.WriteLine("Enter command to move caterpillar direction \nby number of steps using the below commands \n");
-    Console.WriteLine("e.g., U 2 to move up by 2 steps. (Direction and steps should be separated by a space) \n");
+    Console.WriteLine("e.g., u 2 to move up by 2 steps. (Direction and steps should be separated by a space) \n");
     Console.WriteLine("Exit the application by entering X \n");
-    Console.WriteLine("U - Up \nD - Down \nL - Left \nR - Right \nX - Exit \n");
+    Console.WriteLine("u - Up \nd - Down \nl - Left \nr - Right \nx - Exit \n");
     Console.WriteLine(radar.Area + "\n");
     Console.WriteLine("Spices collected - {0} \n", caterpillar.Spices);
 
@@ -19,7 +19,7 @@ while (true)
         break;
     }
 
-    var command = prompt.Split(' ');
+    var command = prompt.Split(" ");
     var direction = char.Parse(command[0].ToUpper()) switch
     {
         (char) Caterpillar.Direction.UP => Caterpillar.Direction.UP,
