@@ -3,6 +3,8 @@
 var caterpillar = new Caterpillar();
 var radar = new Radar(caterpillar);
 
+using StreamWriter log = File.AppendText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "logs.txt"));
+
 while (true)
 {
     Console.WriteLine("Enter command to move caterpillar direction \nby number of steps using the below commands \n");
@@ -14,8 +16,9 @@ while (true)
 
     var prompt = Console.ReadLine();
 
-    if (prompt == null || prompt.Contains('X'))
+    if (prompt == null || prompt.Contains('x'))
     {
+        log.WriteLine("PROGRAM EXIT");
         break;
     }
 
@@ -29,6 +32,8 @@ while (true)
         _ => throw new Exception("Oops! Command not recognized")
     };
     var steps = int.Parse(command[1]);
+
+    log.WriteLine($"{direction} {steps} STEPS");
 
     for (int step = 0; step < steps; step++)
     {
