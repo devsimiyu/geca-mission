@@ -39,12 +39,9 @@ public class Caterpillar
     {
         if (Segments.Count > 2)
         {
-            var tail = Segments.Last;
-            var body = tail.Previous;
-            tail.ValueRef.Position = body.Value.Position;
+            Segments.Remove(Segments.Last);
 
-            Segments.Remove(body);
-
+            Segments.Last.ValueRef.Part = Segment.Parts.TAIL;
         }
     }
 
