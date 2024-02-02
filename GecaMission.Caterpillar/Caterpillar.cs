@@ -16,8 +16,8 @@ public class Caterpillar
     {
         Segments = new LinkedList<Segment>(
         [
-            new Segment { Position = (0,29), Part = Segment.Parts.HEAD },
-            new Segment { Position = (-1,29), Part = Segment.Parts.TAIL }
+            new Segment { Position = (-1,-1), Part = Segment.Parts.HEAD },
+            new Segment { Position = (-1,-1), Part = Segment.Parts.TAIL }
         ]);
     }
 
@@ -25,15 +25,13 @@ public class Caterpillar
     {
         if (Segments.Count < 5)
         {
-            var tail = Segments.Last;
+            Segments.Last.ValueRef.Part = Segment.Parts.BODY;
 
-            Segments.AddBefore(tail, new Segment 
+            Segments.AddLast(new Segment 
             { 
-                Position = tail.Value.Position,
-                Part = Segment.Parts.BODY
+                Position = position,
+                Part = Segment.Parts.TAIL
             });
-
-            tail.ValueRef.Position = position;
         }
     }
 

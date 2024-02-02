@@ -46,12 +46,12 @@ public class Radar
         (8,28),
         (18,29),
     };
-    private (int X, int Y) _FirstPosition = (-1,-1);
+    private (int X, int Y) _FirstPosition = (0,29);
 
     public Radar(Caterpillar caterpillar)
     {
         _Caterpillar = caterpillar;
-        _FirstPosition = caterpillar.Segments.First.Value.Position;
+        _Caterpillar.Segments.First.Value.Position = _FirstPosition;
 
         Tick();
     }
@@ -88,7 +88,6 @@ public class Radar
                 }
 
                 var head = _Caterpillar.Segments.First;
-                var tail = _Caterpillar.Segments.Last;
 
                 if (head.ValueRef.Position.X == x && head.ValueRef.Position.Y == y)
                 {
