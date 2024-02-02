@@ -22,4 +22,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GecaMission.Caterpillar\GecaMission.Caterpillar.csproj" />
+    <ProjectReference Include="..\GecaMission.Radar\GecaMission.Radar.csproj" />
+  </ItemGroup>
+
 </Project>
