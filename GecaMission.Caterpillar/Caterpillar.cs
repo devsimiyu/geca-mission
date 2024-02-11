@@ -75,6 +75,17 @@ public class Caterpillar
                 break;
         }
 
+        if (Segments.Count == 2)
+        {
+            var xDistance = Math.Abs(head.ValueRef.Position.X - nextSegment.ValueRef.Position.X);
+            var yDistance = Math.Abs(head.ValueRef.Position.Y - nextSegment.ValueRef.Position.Y);
+
+            if (xDistance <= 1 && yDistance <= 1)
+            {
+                return nextSegment.Value.Position;
+            }
+        }
+
         return Drag(nextSegment, nextPosition);
     }
 
