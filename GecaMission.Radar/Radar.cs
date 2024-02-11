@@ -140,7 +140,7 @@ public class Radar
                     }
                 }
 
-                Area += $" {spot} ";
+                Area += $" {spot}";
             }
 
             Area += '\n';
