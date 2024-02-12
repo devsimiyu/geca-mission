@@ -43,7 +43,7 @@ public class RadarTest
         _Caterpillar.Segments = new LinkedList<Segment>(
         [
             new Segment { Position = (11,22), Part = Segment.Parts.HEAD },
-            new Segment { Position = (10,22), Part = Segment.Parts.TAIL }
+            new Segment { Position = (10,21), Part = Segment.Parts.TAIL }
         ]);
 
         _Caterpillar.Move(direction);
