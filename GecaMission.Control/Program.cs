@@ -1,4 +1,5 @@
 ﻿using GecaMission;
+using System.Text.RegularExpressions;
 
 var caterpillar = new Caterpillar();
 var radar = new Radar(caterpillar);
@@ -30,7 +31,8 @@ while (true)
         break;
     }
 
-    var command = prompt.ToUpper().ToCharArray();
+    var command = prompt.ToUpper();
+    steps = int.Parse(Regex.Match(command, @"\d+").Value);
     direction = command[0] switch
     {
         (char) Caterpillar.Direction.UP => Caterpillar.Direction.UP,
@@ -39,7 +41,6 @@ while (true)
         (char) Caterpillar.Direction.RIGHT => Caterpillar.Direction.RIGHT,
         _ => throw new Exception("Oops! Command not recognized")
     };
-    steps = int.Parse(command[1].ToString());
 
     log.WriteLine($"{direction} {steps} STEPS");
 
